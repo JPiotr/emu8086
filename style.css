@@ -1,0 +1,282 @@
+@charset "utf-8";
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(178, 179, 179);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.5em;
+}
+input, button, select{
+    text-align: center;
+    padding: 0.1em !important;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5em;
+}
+header{
+    width: 90vw;
+    height: 20vh;
+    text-align: center;
+    z-index: 200;
+    background-color: rgb(178, 179, 179);
+}
+
+#emu_opis{
+    width: 90vw;
+    height: 100vh;
+    z-index: 200;
+}
+#lp{
+    width: 90vw;
+    height: 100vh;
+}
+#przyciski{
+    display:flex;
+    justify-content: space-around;
+    width:100%;
+}
+#Emu{
+    width: 98vw;
+    height: 80vh;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#visible_rej{
+    background-color: lemonchiffon;
+    width: calc(100%/3);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#visible_rej > h3{
+    font-size: 2em;
+    text-align: center;
+}
+#visible_rej > h5{
+    font-size: 1.2em;
+    text-align: center;
+}
+#rejestr{
+    background-color: cadetblue;
+    width: 100%;
+}
+.r{
+    width: 100%;
+    display:flex;
+    justify-content: space-around;
+}
+.r > label{
+    display: block;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    line-height: 150%;
+}
+.r > input{
+    width:100%;
+    text-align: center;
+}
+#ustawienia{
+    background-color: lawngreen;
+    width:100%;
+}
+.u{
+    width: 100%;
+    display:flex;
+    justify-content: space-around;
+}
+.u > label{
+    display: block;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    line-height: 150%;
+}
+.u > input{
+    width:100%;
+    text-align: center;
+}
+#rejestr_btns{
+    width: 100%;
+    display:flex;
+    justify-content: space-around;
+}
+#rejestr_btns > button{
+    width:50%;
+}
+#ustawienia > button{
+    width: 100%;
+}
+#opcje{
+    background-color: lightskyblue;
+    display: flex;
+    flex-direction: column;
+    width: calc(100%/3);
+    height: 100%;
+}
+#opcje > h3{
+    font-size: 2em;
+    text-align: center;
+}
+#sposob_zapisu{
+    background-color: lightcoral;
+    display: flex;
+    flex-direction: column;
+}
+#sposob_zapisu > span{
+    text-align: center;
+    font-size: 1.5em;
+}
+#sposob_indeksacji{
+    background-color: mediumpurple;
+    display: flex;
+    flex-direction: column;
+}
+#wyb_rejestru{
+    background-color: lightsalmon;
+    display: flex;
+    flex-direction: column;
+}
+#sposob_indeksacji2{
+    background-color: orange;
+    display: flex;
+    flex-direction: column;
+}
+#operacje{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#mov_cont{
+    width:100%;
+    display: flex;
+}
+#mov_cont > button {
+    width: 50%;
+}
+#mov_cont > select{
+    width: 50%;
+}
+#mov_on{
+    text-align: center;
+    max-width: 40%;
+}
+#xchg_cont{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+#xchg_cont > button {
+    width: 100%;
+}
+#xchg_cont > select{
+    width: 50%;
+}
+#pam{
+    display: flex;
+    flex-direction: column;
+    width: calc(100%/6);
+    background-color: gold;
+    height: 100%;
+}
+.k{
+    display: block;
+    min-width: 90%;
+    max-height: calc(100%/26);
+    background-color: cadetblue;
+    text-align: center;
+    font-size: 2em;
+    border: dashed black;
+}
+#stos_napis{
+    text-align: center;
+    height: 9%;
+    line-height: 2.4em;
+    font-size: 3em;
+    background-color: lawngreen;
+    border:none !important;
+    z-index: 200;
+}
+#stos{
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: bottom;
+    align-items: center;
+    background-color: aqua;
+    height: 100%;
+    width: calc(100%/2);
+}
+#pzapstosu{
+    height: 100%;
+    width: calc(100%/2);
+    background-color: green;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: bottom;
+    align-items: center;
+}
+#wskaznik{
+    height: calc(calc(100%/32767)*0);
+    background-color: indigo;
+    width: 50%;
+    overflow: hidden;
+}
+#p_stosu{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.point{
+    cursor: pointer;
+}
+button{
+    cursor: pointer;
+}
+select{
+    cursor: pointer;
+}
+option{
+    cursor: pointer;
+}
+.point:hover {
+    background-color: lightcoral;
+    box-shadow: inset 0 0 0 0.2em lightsalmon;
+}
+label{
+    font-size: 1.5em;
+}
+.k1_back{
+    animation: anim 2s;
+}
+.k1_rev{
+    animation: anim 2s;
+}
+@keyframes anim1{
+    0%{ 
+        position: relative;
+        right: 0;
+    }
+    100%{position: relative;
+         right:95%;
+         opacity: hidden;
+         display:none;
+    }
+}
+@keyframes anim{
+    0%{ 
+        position: relative;
+        top: calc(calc(100%/26)*(-26));}
+    100%{position: relative;
+         top:0}
+}

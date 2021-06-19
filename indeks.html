@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>Intel8086</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="core.js"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!--<section id="lp">
+
+        </section>
+        <section id="emu_opis">
+
+        </section>-->
+        <header>
+            <h1>EMU 8086</h1>
+            <div id="przyciski">
+                <button id="start" onclick="emu.start()">Start System</button>
+                <button id="stop" onclick="emu.stop()">Stop System</button>
+            </div>
+        </header>
+        <section id="Emu">
+            <div id="visible_rej">
+                <h3>Rejestry</h3>
+                <div id="rejestr">
+                    <div id="rejestr_btns">
+                        <button id="reset_rej" onclick="emu.reset1()">RESET</button>
+                        <button id="random_rej" onclick="emu.random()">RANDOM</button>
+                    </div>
+                    <div id="r_ax" class="r">
+                        <label for="ax" class="point" onclick="emu.stos.push('ax')">AX</label>
+                        <input type="text" id="ax"  value="0000" disabled/>
+                    </div>
+                    <div id="r_bx" class="r">
+                        <label for="bx" class="point" onclick="emu.stos.push('bx')">BX</label>
+                        <input type="text" id="bx" value="0000" disabled/>
+                    </div>
+                    <div id="r_cx" class="r">
+                        <label for="cx" class="point" onclick="emu.stos.push('cx')">CX</label>
+                        <input type="text" id="cx" value="0000" disabled/>
+                    </div>
+                    <div id="r_dx" class="r">
+                        <label for="dx" class="point" onclick="emu.stos.push('dx')">DX</label>
+                        <input type="text" id="dx" value="0000" disabled/>
+                    </div>
+                </div>
+                <div id="ustawienia">
+                    <button id="reset_ust" onclick="emu.reset2()">RESET</button>
+                    <div id="u_si" class="u">
+                        <label for="si" >SI</label>
+                        <input type="text" id="si" value="0000" disabled/>
+                    </div>
+                    <div id="u_di" class="u">
+                        <label for="di" >DI</label>
+                        <input type="text" id="di" value="0000" disabled/>
+                    </div>
+                    <div id="u_bp" class="u">
+                        <label for="bp" >BP</label>
+                        <input type="text" id="bp" value="0000" disabled/>
+                    </div>
+                    <div id="u_sp" class="u">
+                        <label for="sp" class="point" onclick="emu.stos.pop(document.getElementById('stos_select').value)">SP</label>
+                        <input type="text" id="sp" value="0000" disabled/>
+                    </div>
+                    <div id="u_disp" class="u">
+                        <label for="disp" >DISP</label>
+                        <input type="text" id="disp" value="0000" disabled/>
+                    </div>
+                </div>
+                <h5>Wybór rejestru do którego ma być przekazana zmienna ze stosu.</h5>
+                <select id="stos_select" class="point">
+                    <option value="ax">AX</option>
+                    <option value="bx">BX</option>
+                    <option value="cx">CX</option>
+                    <option value="dx">DX</option>
+                </select>
+            </div>
+            <div id="opcje">
+                <h3>Ustawienia</h3>
+                <div id="sposob_zapisu">
+                    <span>Sposób Zapisu</span>
+                    <div id="s1" class="s">
+                        <input type="radio" id="dpam" class="point" name="szap" value="1" onclick="emu.zabmov()">
+                        <label for="dpam">Z Rejestru do Pamięci</label>
+                    </div>
+                    <div id="s2" class="s">
+                        <input type="radio" id="zpam" class="point" name="szap" value="2" onclick="emu.zabmov()">
+                        <label for="zpam">Z Pamięci do Rejestru</label>   
+                    </div>
+                    <div id="s3" class="s">
+                        <input type="radio" id="drj" class="point" name="szap" value="0" checked onclick="emu.odbmov()">
+                        <label for="drj">Do Rejestru / Zmiennych</label>
+                    </div>
+                </div>
+                <div id="sposob_indeksacji">
+                    <div id="si1" class="si0">
+                        <input type="radio" id="ind" class="point" name="sind" value="1"  onclick="emu.indeksowy()" disabled="true">
+                        <label for="ind">Indeksowy</label>
+                    </div>
+                    <div id="si2" class="si0">
+                        <input type="radio" id="baz" class="point" name="sind" value="2" onclick="emu.bazowy()" disabled="true">
+                        <label for="baz">Bazowy</label>
+                    </div>
+                    <div id="si3" class="si0">
+                        <input type="radio" id="indbaz" class="point" name="sind" value="3" onclick="emu.indeksowo_bazowy()" disabled="true">
+                        <label for="indbaz">Indeksowo-Bazowy</label>  
+                    </div>
+                    <div id="si4" class="si0">
+                        <input type="radio" id="brak1" class="point" name="sind" value="0" checked onclick="emu.brak_wyb()" disabled="true">
+                        <label for="brak2">Brak</label>
+                    </div>
+                </div>
+                <div id="wyb_rejestru">
+                    <div id="wr1" class="wr">
+                        <input type="radio" id="op_si" class="point" name="wybrej" value="si" disabled="true">
+                        <label for="op_si">SI</label>
+                    </div>
+                    <div id="wr2" class="wr">
+                        <input type="radio" id="op_di" class="point" name="wybrej" value="di" disabled="true">
+                        <label for="op_di">DI</label>
+                    </div>
+                    <div id="wr3" class="wr">
+                        <input type="radio" id="op_bx" class="point" name="wybrej" value="bx" disabled="true">
+                        <label for="op_bx">BX</label>
+                    </div>
+                    <div id="wr4" class="wr">
+                        <input type="radio" id="op_bp" class="point" name="wybrej" value="bp" disabled="true">
+                        <label for="op_bp">BP</label>
+                    </div>
+                </div>
+                <div id="sposob_indeksacji2">
+                    <div id="si21" class="si00">
+                        <input type="radio" id="op_si_bx" class="point" name="sind2" value="sibx" disabled="true">
+                        <label for="op_si_bx">SI i BX</label>
+                    </div>
+                    <div id="si22" class="si00">
+                        <input type="radio" id="op_di_bx" class="point" name="sind2" value="dibx" disabled="true">
+                        <label for="op_di_bx">DI i BX</label>
+                    </div>
+                    <div id="si23" class="si00"> 
+                        <input type="radio" id="op_si_bp" class="point" name="sind2" value="sibp" disabled="true">
+                        <label for="op_si_bp">SI i BP</label>
+                    </div>
+                    <div id="si24" class="si00">
+                        <input type="radio" id="op_di_bp" class="point" name="sind2" value="dibp" disabled="true">
+                        <label for="op_di_bp">DI i BP</label>
+                    </div>
+                </div>
+                <h3>Działania</h3>
+                <div id="operacje">
+                    <div id="mov_cont">
+                        <button id="mov_b" onclick="emu.mov()" disabled="true">MOV</button>
+                        <input type="text" id="mov_on" value="0000" enabled/>
+                        <select id="mov_s">
+                            <option value="ax">AX</option>
+                            <option value="bx">BX</option>
+                            <option value="cx">CX</option>
+                            <option value="dx">DX</option>
+                            <option value="si">SI</option>
+                            <option value="di">DI</option>
+                            <option value="bp">BP</option>
+                            <option value="disp">DISP</option>
+                        </select>
+                    </div>
+                    <div id="xchg_cont">
+                        <button id="xchg_b" disabled="true" onclick="emu.xchg()">XCHG</button>
+                        <select id="xchg_s_l">
+                            <option value="ax">AX</option>
+                            <option value="bx">BX</option>
+                            <option value="cx">CX</option>
+                            <option value="dx">DX</option>
+                            <option value="si">SI</option>
+                            <option value="di">DI</option>
+                            <option value="bp">BP</option>
+                            <option value="disp">DISP</option>
+                        </select>
+                        <select id="xchg_s_p">
+                            <option value="ax">AX</option>
+                            <option value="bx">BX</option>
+                            <option value="cx">CX</option>
+                            <option value="dx">DX</option>
+                            <option value="si">SI</option>
+                            <option value="di">DI</option>
+                            <option value="bp">BP</option>
+                            <option value="disp">DISP</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="pam">
+                <div id="stos_napis">STOS</div>
+                <div id="p_stosu">
+                    <div id="stos">
+
+                    </div>
+                    <div id="pzapstosu">
+                        <div id="wskaznik">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            let emu = new EMU();
+
+            let movon = document.getElementById("mov_on");
+            movon.onkeydown = emu.checker_mov;
+            movon.onkeyup = emu.checker_mov;
+            movon.onkeypress = emu.checker_mov;
+
+            
+        </script>
+    </body>
+</html>
