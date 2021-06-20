@@ -1,5 +1,3 @@
-//to do 
-// pdf z opisem emulatora + załączenie na GITHUB-a
 function EMU(){
     this.working = false;
     this.inputs = document.getElementsByTagName("input");
@@ -129,9 +127,6 @@ EMU.prototype.dekonverter = function(wartosc){
     let wynik = []
     while(liczba>=0){
         reszta = liczba % 16;
-        liczba=Math.floor(liczba/16);
-        console.log(liczba);
-        console.log(reszta)
         if(liczba==0){
             wynik.push(this.dec[liczba]);
         }
@@ -141,10 +136,9 @@ EMU.prototype.dekonverter = function(wartosc){
         if(wynik.length == 4){
             break;
         }
-        
-        
+        liczba=Math.floor(liczba/16);
     }
-    return wynik[0]+wynik[1]+wynik[2]+wynik[3];
+    return wynik[3]+wynik[2]+wynik[1]+wynik[0];
 }
 EMU.prototype.checker_mov = function(){
     //console.log(movon.value);
@@ -414,13 +408,152 @@ EMU.prototype.odbmov = function(){
     this.brak_wyb();
     document.getElementById("mov_b").disabled=false;
 }
-EMU.prototype.xchg = function(){
+EMU.prototype.xchg = function(){    
     let sp = document.getElementById("xchg_s_p").value;
     let sl = document.getElementById("xchg_s_l").value;
     let lw = document.getElementById(sl).value;
     let pw = document.getElementById(sp).value;
     document.getElementById(sp).value = lw;
     document.getElementById(sl).value = pw;
+    
+}
+EMU.prototype.xchg1 = function(){
+    let direction = document.getElementById('mov_s').value;
+    //sprawdzenie ktora forma zapisu została wybrana
+    for(j=0;j<this.spzap.length;j++){
+        let rj = document.getElementsByName("wybrej");
+        let rj1 = document.getElementsByName("sind2");
+        let displ = this.konwerter(document.getElementById("disp").value);
+            if(displ!=="0000"){
+                    displ = this.konwerter(document.getElementById("disp").value);
+            }
+            else{
+                displ = 0
+            }
+        //potrzebuje wartosc z rejestru i wartosc z pamieci a pozniej je zapisac do rejestru i do pamieci
+        let x = document.getElementById(direction).value; //wartosc z rejestru
+        let y = "0000";
+        for(i=0;i<8;i++){
+            if(i<4){
+                if(rj[i].checked){
+                    y = this.pamiec.pam[this.pamiec.generatorPoz(this.konwerter(document.getElementById(rj[i].value).value)+displ)].hex;
+                }
+            }
+            else{
+                if(rj1[i-4].checked){
+                    y = this.pamiec.generatorPoz(this.konwerter(document.getElementById(
+                        rj1[i-4].value[0]+
+                        rj1[i-4].value[1]
+                        ).value)+
+                    this.konwerter(document.getElementById(
+                        rj1[i-4].value[2]+
+                        rj1[i-4].value[3]
+                        ).value)+displ);
+                }
+            }
+        }
+        switch (this.spzap[j].id){
+           case "dpam": 
+           if(this.spzap[j].checked){
+                for(i=0;i<8;i++){
+                    if(i<4){
+                        if(rj[i].checked){
+                            this.pamiec.zapis(
+                                x,
+                                this.konwerter(document.getElementById(rj[i].value).value)+displ
+                            );
+                            document.getElementById(direction).value = y;
+                            console.log("Zapis ("+x+") do komórki o adresie= "+
+                            this.pamiec.generatorPoz(this.konwerter(document.getElementById(rj[i].value).value)+displ));
+                            console.log("Zapis ("+y+") do rejestru =" +direction);
+                        }
+                    }
+                    else{
+                        if(rj1[i-4].checked){
+                            this.pamiec.zapis(
+                                x,
+                                this.konwerter(document.getElementById(
+                                    rj1[i-4].value[0]+
+                                    rj1[i-4].value[1]
+                                    ).value)+
+                                this.konwerter(document.getElementById(
+                                    rj1[i-4].value[2]+
+                                    rj1[i-4].value[3]
+                                    ).value)+displ
+                            );
+                            document.getElementById(direction).value = y
+                            console.log("Zapis ("+x+") do komórki o adresie= "+
+                            this.pamiec.generatorPoz(this.konwerter(document.getElementById(
+                                rj1[i-4].value[0]+
+                                rj1[i-4].value[1]
+                                ).value)+
+                            this.konwerter(document.getElementById(
+                                rj1[i-4].value[2]+
+                                rj1[i-4].value[3]
+                                ).value)+displ));
+                            console.log("Zapis ("+y+") do rejestru =" +direction);
+                        }
+                    }
+                } 
+           }
+           break;
+           case "zpam":
+            if(this.spzap[j].checked){
+                for(i=0;i<8;i++){
+                    if(i<4){
+                        if(rj[i].checked){
+                            this.pamiec.zapis(
+                                x,
+                                this.konwerter(document.getElementById(rj[i].value).value)+displ
+                            );
+                            document.getElementById(direction).value = y;
+                            console.log("Zapis ("+x+") do komórki o adresie= "+
+                            this.pamiec.generatorPoz(this.konwerter(document.getElementById(rj[i].value).value)+displ));
+                            console.log("Zapis ("+y+") do rejestru =" +direction);
+                        }
+                    }
+                    else{
+                        if(rj1[i-4].checked){
+                            this.pamiec.zapis(
+                                x,
+                                this.konwerter(document.getElementById(
+                                    rj1[i-4].value[0]+
+                                    rj1[i-4].value[1]
+                                    ).value)+
+                                this.konwerter(document.getElementById(
+                                    rj1[i-4].value[2]+
+                                    rj1[i-4].value[3]
+                                    ).value)+displ
+                            );
+                            document.getElementById(direction).value = y
+                            console.log("Zapis ("+x+") do komórki o adresie= "+
+                            this.pamiec.generatorPoz(this.konwerter(document.getElementById(
+                                rj1[i-4].value[0]+
+                                rj1[i-4].value[1]
+                                ).value)+
+                            this.konwerter(document.getElementById(
+                                rj1[i-4].value[2]+
+                                rj1[i-4].value[3]
+                                ).value)+displ));
+                            console.log("Zapis ("+y+") do rejestru =" +direction);
+                        }
+                    }
+                } 
+           }
+           break;
+           case "drj":
+               //xchg na rejestrze
+            if(this.spzap[j].checked){
+                let sp = document.getElementById("xchg_s_p").value;
+                let sl = document.getElementById("xchg_s_l").value;
+                let lw = document.getElementById(sl).value;
+                let pw = document.getElementById(sp).value;
+                document.getElementById(sp).value = lw;
+                document.getElementById(sl).value = pw;
+           }
+           break;
+        }   
+    }
 }
 EMU.prototype.random = function(){
         min = Math.ceil(0);
@@ -482,11 +615,6 @@ PAM.prototype.inicjacja = function(){
     for(i=1;i<=32768;i++){
         this.dodajkom("0000",0);
     }
-    //for(i=1;i<=32768;i++){
-    //    this.DOMobj.appendChild(this.pam[i-1].DOMobj);
-    //    console.log("Ukazywanie komurki pamieci o id = p"+i)
-        //zastanow sie jak ukazac komurki i ich wartosci w optymalny sposob
-    //}
 }
 PAM.prototype.zapis = function(wartosc,pozycja){
     this.pam[this.generatorPoz(pozycja)].hex = wartosc;
@@ -504,8 +632,10 @@ function STOS(){
     this.DOMobj = document.getElementById("stos");
     this.licznik = 0;
     this.max_kom = 32767;
+    this.wskaznik_w_stosu= document.getElementById("sp");
     //this.przekroczenie = 0;
     this.pam = [];
+    this.wsnum = new Number(0);
 }
 function SKOM(wartosc, pozycja, id){
     this.hex = wartosc;
@@ -523,27 +653,40 @@ STOS.prototype.push = function(what){
     let x = document.getElementById(what).value;
     let y = document.getElementById("wskaznik");
     this.dodajkom(x);
-    //sprawdzenie przekroczenia widocznosci stosu
-    if(this.licznik > 26){
-        this.DOMobj.children[this.licznik-27].style = "display:none";
-       // this.przekroczenie+=1;
-        this.pam[this.licznik].DOMobj.textContent = x;
-        this.DOMobj.appendChild(this.pam[this.licznik].DOMobj);
-        this.licznik = this.licznik + 1;
-        console.log("Ukrycie komurki stosu o id = s"+(this.licznik-28))
-        console.log("Ukazywanie komurki stosu o id = s"+this.licznik)
-        y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
-        y.textContent = this.licznik;
+    if(this.max_kom > this.licznik){
+        //sprawdzenie przekroczenia widocznosci stosu
+        if(this.licznik > 25){
+            this.DOMobj.children[this.licznik-26].style = "display:none";
+        // this.przekroczenie+=1;
+            this.pam[this.licznik].DOMobj.textContent = x;
+            this.DOMobj.appendChild(this.pam[this.licznik].DOMobj);
+            this.licznik = this.licznik + 1;
+            console.log("Ukrycie komurki stosu o id = s"+(this.licznik-27))
+            console.log("Ukazywanie komurki stosu o id = s"+this.licznik)
+            y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
+            this.wsnum = new Number((((100/this.max_kom))*(this.licznik)));
+            this.wsnum = this.wsnum.toFixed(2);
+            this.wsnum = new Number(this.wsnum);
+            y.textContent =  this.wsnum+"%";
+        }
+        else{
+            this.pam[this.licznik].DOMobj.textContent = x;
+            this.DOMobj.appendChild(this.pam[this.licznik].DOMobj);
+            this.licznik = this.licznik + 1;
+            console.log("Ukazywanie komurki stosu o id = s"+(this.licznik-1));
+            y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
+            this.wsnum = new Number((((100/this.max_kom))*(this.licznik)));
+            this.wsnum = this.wsnum.toFixed(2);
+            this.wsnum = new Number(this.wsnum);
+            y.textContent =  this.wsnum+"%";;
+        }
+        this.wskaznik_w_stosu.value = emu.dekonverter(this.licznik*2);
     }
     else{
-        this.pam[this.licznik].DOMobj.textContent = x;
-        this.DOMobj.appendChild(this.pam[this.licznik].DOMobj);
-        this.licznik = this.licznik + 1;
-        console.log("Ukazywanie komurki stosu o id = s"+(this.licznik-1));
-        y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
-        y.textContent = this.licznik;
+        console.log("STOS zapełniony!");
     }
 }
+
 STOS.prototype.dodajkom = function(hex){
     let s = new SKOM(hex,this.licznik,"s"+this.licznik);
     this.pam.push(s);
@@ -554,19 +697,22 @@ STOS.prototype.pop = function(where){
         console.log("Nie można usunąć komurki stosu która nie istenieje!");
     }
     else{
-        if(this.licznik > 27){
+        if(this.licznik > 26){
             let x = document.getElementById(where);
             x.value = this.pam[this.licznik-1].hex;
             //this.DOMobj.children[this.licznik-27].remove("k1_rev");
-            this.DOMobj.children[this.licznik-28].style = "display:block";
+            this.DOMobj.children[this.licznik-27].style = "display:block";
             this.DOMobj.removeChild(this.pam[this.licznik-1].DOMobj);
             this.pam.pop();
-            console.log("Ukazywanie komurki stosu o id = s"+(this.licznik-28));
+            console.log("Ukazywanie komurki stosu o id = s"+(this.licznik-27));
            // this.przekroczenie-=1;
             console.log("Uswuanie komurki stosu o id = s"+(this.licznik-1));
             this.licznik=this.licznik-1;
             y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
-            y.textContent = this.licznik;
+            this.wsnum = new Number((((100/this.max_kom))*(this.licznik)));
+            this.wsnum = this.wsnum.toFixed(2);
+            this.wsnum = new Number(this.wsnum);
+            y.textContent =  this.wsnum+"%";
         }
         else{
             let x = document.getElementById(where);
@@ -576,8 +722,11 @@ STOS.prototype.pop = function(where){
             console.log("Uswuanie komurki stosu o id = s"+(this.licznik-1));
             this.licznik=this.licznik-1;
             y.style = "height: calc(calc(100%/32767)*"+(this.licznik)+");";
-            y.textContent = this.licznik;
+            this.wsnum = new Number((((100/this.max_kom))*(this.licznik)));
+            this.wsnum = this.wsnum.toFixed(2);
+            this.wsnum = new Number(this.wsnum);
+            y.textContent =  this.wsnum+"%";
         }
     }
-
+    this.wskaznik_w_stosu.value = emu.dekonverter(this.licznik*2 );
 }

@@ -166,7 +166,7 @@
                         </select>
                     </div>
                     <div id="xchg_cont">
-                        <button id="xchg_b" disabled="true" onclick="emu.xchg()">XCHG</button>
+                        <button id="xchg_b" disabled="true" onclick="emu.xchg1()">XCHG</button>
                         <select id="xchg_s_l">
                             <option value="ax">AX</option>
                             <option value="bx">BX</option>
@@ -212,7 +212,8 @@
             movon.onkeyup = emu.checker_mov;
             movon.onkeypress = emu.checker_mov;
 
-            
+            console.log("Emulator Procesora Intel 8086 by Piotr Jurczak.")
+            console.log("Git: https://github.com/JPiotr/emu8086")
         </script>
     </body>
 </html>
