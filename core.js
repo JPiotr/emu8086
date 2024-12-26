@@ -1,3 +1,61 @@
+class RegistryUI{
+
+}
+class Registry{
+
+}
+class HeapUI{
+
+}
+class Heap{
+
+}
+class MemoryCellUI{
+
+}
+class MemoryCell{
+    static count = 0;
+    ui = new MemoryCellUI();
+    value = 0;
+    id = 0;
+
+    MemoryCell(value){
+        MemoryCell.count++;
+        this.id = MemoryCell.count;
+        this.value = value;
+    }
+}
+class EmulatorUI{
+    inputs = document.querySelectorAll("input");
+    buttons = document.querySelectorAll("button");
+    selectors = document.querySelectorAll("select");
+    movOn = document.querySelector("#mov_on");
+    logWindow = document.querySelector("#log");
+}
+class Emulator{
+    static logCount = 0;
+    working = false;
+    ui = new EmulatorUI();
+
+    start(){
+
+    }
+    stop(){
+
+    }
+    convert(value){
+        const value16bit = value & 0xFFFF;
+        let hexValue = value16bit.toString(16).toUpperCase().padStart(4, "0");
+        return hexValue;
+    }
+    move(){
+
+    }
+    random(){
+
+    }
+}
+
 function EMU(){
     this.working = false;
     this.inputs = document.getElementsByTagName("input");
@@ -110,35 +168,6 @@ EMU.prototype.stop = function(){
     document.getElementById("stop").disabled = true;
     document.getElementById("start").disabled = false;
     console.log("Emu nie działa..");
-}
-EMU.prototype.konwerter = function(wartosc){
-    let znaki = wartosc;
-    wartosc = 
-    (this.hex[znaki[0]]*Math.pow(16,3))+
-    (this.hex[znaki[1]]*Math.pow(16,2))+
-    (this.hex[znaki[2]]*Math.pow(16,1))+
-    (this.hex[znaki[3]]*Math.pow(16,0));
-    //console.log(znaki +" = "+wartosc);
-    return wartosc;
-}
-EMU.prototype.dekonverter = function(wartosc){
-    let liczba = wartosc;
-    let reszta = 0;
-    let wynik = []
-    while(liczba>=0){
-        reszta = liczba % 16;
-        if(liczba==0){
-            wynik.push(this.dec[liczba]);
-        }
-        else{
-            wynik.push(this.dec[reszta]);
-        }
-        if(wynik.length == 4){
-            break;
-        }
-        liczba=Math.floor(liczba/16);
-    }
-    return wynik[3]+wynik[2]+wynik[1]+wynik[0];
 }
 EMU.prototype.checker_mov = function(){
     //console.log(movon.value);
