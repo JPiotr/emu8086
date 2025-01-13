@@ -6,6 +6,8 @@ body {
 
 * {
     outline: solid sandybrown;
+    background-color: black;
+    color:aliceblue;
 }
 input{
     /* font-family: "Press Start 2P", cursive; */
@@ -179,7 +181,7 @@ input{
     text-align: center;
 }
 .settingSelected{
-    background-color: aqua;
+    background-color: darkcyan;
 }
 .settingBlocked{
     background-color: gray;
