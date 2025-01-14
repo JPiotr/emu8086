@@ -1,3 +1,42 @@
+class ConsoleUI{
+    input = document.querySelector("#consoleInput");
+    history = document.querySelector(".consoleHistory");
+}
+class Console{
+    ui = new ConsoleUI();
+    constructor(){
+        this.ui.input.addEventListener("keydown",(event) => this.submit(event));
+        console.log("Console initialized!");
+    }
+
+    submit(event){
+        if(event.code != "Enter"){
+            return;
+        }
+        this.log();
+
+    }
+    log(){
+        this.ui.history.innerHTML += "<br/>" + this.ui.input.value;
+        this.ui.input.value = "";
+        this.ui.history.scrollTo(0,this.ui.history.scrollHeight)
+    }
+    mov(){
+
+    }
+    reg(){
+
+    }
+    ind(){
+
+    }
+    base(){
+
+    }
+    indBase(){
+
+    }
+}
 class RegistryUI{
 
 }
@@ -36,7 +75,7 @@ class Emulator{
     static logCount = 0;
     working = false;
     ui = new EmulatorUI();
-
+    console = new Console();
     start(){
 
     }
@@ -55,7 +94,9 @@ class Emulator{
 
     }
 }
-
+document.addEventListener("DOMContentLoaded",()=>{
+    new Emulator();
+})
 function EMU(){
     this.working = false;
     this.inputs = document.getElementsByTagName("input");

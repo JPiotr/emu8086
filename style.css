@@ -55,10 +55,30 @@ input{
     display: flex;
     flex-direction: column;
 }
-#consoleInput{
-    font-size: 11pt;
-    text-align: start;
-    height: 6%;
+#consoleInput{ 
+  width: 100%;
+  text-align: start;
+}
+.consoleHistory{
+  overflow-y: scroll;
+  max-height: 45dvh;
+  padding-bottom: 2%;
+  padding-left: 2%;
+  max-width: 98%;
+}
+.consoleIn{
+  font-size: 11pt;
+  text-align: center;
+  font-weight: bold;
+  align-self: center;
+  width: 4%;
+}
+.consoleInputContainer{
+  height: 6%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 .inputArea > span{
     height: 94%;
