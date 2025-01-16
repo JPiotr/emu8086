@@ -8,15 +8,18 @@ body {
     outline: solid sandybrown;
     background-color: black;
     color:aliceblue;
+    font-family: 'Anonymous Pro';
 }
 input{
-    /* font-family: "Press Start 2P", cursive; */
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
     text-align: center;
     font-size: 23pt;
+    font-family: "Anonymous Pro", serif;
+    font-weight: 700;
+    font-style: normal;
 }
 .container {
     margin-left: 1em;
@@ -60,6 +63,8 @@ input{
   text-align: start;
 }
 .consoleHistory{
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
   max-height: 45dvh;
   padding-bottom: 2%;

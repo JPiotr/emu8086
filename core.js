@@ -13,16 +13,73 @@ class Console{
         if(event.code != "Enter"){
             return;
         }
+        if (this.ui.input.value.toLowerCase() == "help") {
+          const helpContnet = [
+            "cls - will clean console history",
+            "mov <[ax,bx,cx,dx]> <value> - will move value to: ",
+            "   - ax - ax registry",
+            "   - bx - bx registry",
+            "   - cx - cx registry",
+            "   - dx - dx registry",
+            "or",
+            "xchg <[ax,bx,cx,dx]> <[ax,bx,cx,dx]> - will xchange value between registers",
+          ];
+          this.log();
+          helpContnet.forEach((x) => {
+            let logRow = document.createElement("span");
+            logRow.innerHTML = x;
+            this.ui.history.appendChild(logRow);
+          });
+          return;
+        } else if (this.ui.input.value.toLowerCase() == "cls") {
+          this.cls();
+          this.log();
+          return;
+        } else if(this.ui.input.value.substr(0,3) == "mov"){
+            let temp = this.ui.input.value.split(" ");
+            if(temp.length != 3){
+                let logRow = document.createElement("span");
+                logRow.innerHTML = "It's required to pass 3 arguments.";
+                this.ui.history.appendChild(logRow);
+            }else{
+                this.mov(temp[1],temp[2]);
+            }
+        } else if(this.ui.input.value.substr(0,4) == "xchg"){
+            let temp = this.ui.input.value.split(' ');
+            if (temp.length != 3) {
+              let logRow = document.createElement("span");
+              logRow.innerHTML = "It's required to pass 3 arguments.";
+              this.ui.history.appendChild(logRow);
+            } else {
+              this.xchg(temp[1], temp[2]);
+            }
+        }
         this.log();
-
     }
     log(){
-        this.ui.history.innerHTML += "<br/>" + this.ui.input.value;
+        let logRow = document.createElement("span");
+        logRow.innerHTML = this.ui.input.value;
+        this.ui.history.appendChild(logRow);
+        // this.ui.history.innerHTML += "<br/>" + this.ui.input.value;
         this.ui.input.value = "";
         this.ui.history.scrollTo(0,this.ui.history.scrollHeight)
     }
-    mov(){
-
+    mov(registry, value){
+        let reg = document.querySelector("#"+registry);
+        if(value.length > 4){
+            let logRow = document.createElement("span");
+            logRow.innerHTML = "Do not extend 16bit's of memory!";
+            this.ui.history.appendChild(logRow);
+            return;
+        }
+        reg.value = value;
+    }
+    xchg(reg1, reg2){
+        let req1 = document.querySelector("#"+reg1);
+        let req2 = document.querySelector("#"+reg2);
+        let temp = req1.value;
+        req1.value = req2.value;
+        req2.value = temp;
     }
     reg(){
 
@@ -35,6 +92,12 @@ class Console{
     }
     indBase(){
 
+    }
+    help(){
+
+    }
+    cls(){
+        this.ui.history.innerHTML = "";
     }
 }
 class RegistryUI{
