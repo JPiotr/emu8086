@@ -71,6 +71,9 @@ input{
   padding-left: 2%;
   max-width: 98%;
 }
+.consoleHeader{
+  text-align: center;
+}
 .consoleIn{
   font-size: 11pt;
   text-align: center;
